@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #6e0792;
+        }
+
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .video-container video {
+            width: 125%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-container {
+            position: relative;
+            max-width: 600px;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .highlighted-text {
+            color: #ffd700;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .cta {
+            margin-top: 20px;
+        }
+
+        .cta input {
+            padding: 10px;
+            width: 70%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .cta button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cta button:hover {
+            background-color: #0056b3;
+        }
+
+        .content-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 50px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .content-text {
+            flex: 1;
+            max-width: 50%;
+            padding: 20px;
+        }
+
+        .content-text h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #002855;
+            margin-bottom: 20px;
+        }
+
+        .content-text p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .content-image {
+            flex: 1;
+            max-width: 50%;
+            padding: 20px;
+        }
+
+        .content-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .card-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 50px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .card-text h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #002855;
+            margin-bottom: 20px;
+        }
+
+        .content-card {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .scrolling-container {
+            display: flex;
+            animation: scroll 20s linear infinite;
+        }
+
+        .card {
+            min-width: 250px;
+            margin: 0 15px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .quotes-head h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #002855;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .quotes-section {
+            padding: 50px 20px;
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+
+        .carousel-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-inner {
+            display: flex;
+            animation: scroll-quotes 20s linear infinite;
+        }
+
+        .quotes-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .quote-item {
+            min-width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .quote-item h4 {
+            font-size: 1.5rem;
+            color: #ae1fdf;
+        }
+
+        .how-to-section {
+            padding: 50px 20px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        .how-to-section h2 {
+            font-size: 2rem;
+            color: #002855;
+            margin-bottom: 20px;
+        }
+
+        .how-to-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .step {
+            max-width: 300px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .step h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .step p {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes scroll-quotes {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                height: auto;
+                padding: 20px;
+            }
+
+            .video-container video {
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .text-container {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .content-section {
+                flex-direction: column;
+            }
+
+            .content-text,
+            .content-image {
+                max-width: 100%;
+            }
+
+            .content-text h1 {
+                font-size: 2rem;
+            }
+
+            .content-text p {
+                font-size: 1rem;
+            }
+
+            .quotes-head h1 {
+                font-size: 1.8rem;
+            }
+
+            .quote-item h4 {
+                font-size: 1.2rem;
+            }
+
+            .card-section {
+                flex-direction: column;
+            }
+
+            .card-text h1 {
+                font-size: 2rem;
+                text-align: center;
+            }
+
+            .scrolling-container {
+                flex-wrap: wrap;
+                animation: none;
+                justify-content: center;
+            }
+
+            .how-to-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .how-to-content img {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="video-container">
+            <video autoplay muted loop>
+                <source src="hero-video-new-c5.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="text-container">
+            <h1>Put your money to work</h1>
+            <p>
+                Invest wisely like 
+                <span class="highlighted-text" id="changing-text">Moyosoluwa</span>
+            </p>
+            <div class="cta">
+                <input type="email" placeholder="Your email...">
+                <button>Start Investing</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="content-text">
+            <h1>
+                <span style="font-weight: bold;">Get a little</span> 
+                <span style="font-weight: normal;">richer</span> 
+                <span style="font-weight: bold;">each day</span>
+            </h1>
+            <p>One small step today, a giant leap for tomorrow. We provide the best investment options to grow your wealth.</p>
+            <button style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Start Building Wealth</button>
+        </div>
+        <div class="content-image">
+            <img src="48.gif" alt="Investment illustration">
+        </div>
+    </div>
+
+    <div class="card-section">
+        <div class="card-text">
+            <h1>
+                <span style="font-weight: bold;">You Name it,We</span><br> 
+                <span style="font-weight: normal;">Made it</span> 
+                <span style="font-weight: bold;">Happen!</span>
+            </h1>
+        </div>
+
+        <!-- Horizontal scrolling card -->
+        <div class="content-card">
+            <div class="scrolling-container">
+                <div class="card">
+                    <h1>Choose an account type</h1>
+                </div>
+                <div class="card">
+                    <h3>Investment Option 2</h3>
+                    <p>Description of investment option 2...</p>
+                </div>
+                <div class="card">
+                    <h3>Investment Option 3</h3>
+                    <p>Description of investment option 3...</p>
+                </div>
+                <div class="card">
+                    <h3>Investment Option 4</h3>
+                    <p>Description of investment option 4...</p>
+                </div>
+                <!-- Add more cards as needed -->
+            </div>
+        </div>
+    </div>
+
+    <section class="quotes-section">
+        <div class="container">
+            <div class="quotes-head">
+                <h1>
+                    <span style="font-weight: bold;">You name it,</span><br>  
+                    <span style="font-weight: normal;"> we’ve figured it out.</span>
+                </h1>
+            </div>
+        </div>
+        <div class="carousel-wrapper">
+            <div class="carousel-inner">
+                <div class="quotes-row">
+                    <div class="quote-item">
+                        <h4>Automate and build my savings</h4>
+                    </div>
+                    <div class="quote-item">
+                        <h4>Diversified long-term investing</h4>
+                    </div>
+                    <div class="quote-item">
+                        <h4>Get better returns on my money</h4>
+                    </div>
+                    <div class="quote-item">
+                        <h4>Invest my business’ cash</h4>
+                    </div>
+                    <div class="quote-item">
+                        <h4>Invest in mutual funds easily</h4>
+                    </div>
+                    <div class="quote-item">
+                        <h4>Invest with very low fees</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-to-section">
+        <h2>How to Get Started</h2>
+        <div class="how-to-content">
+            <img src="man-eye.png" alt="How to Steps">
+            <div class="text">
+                <h3>It takes just 5 minutes:</h3>
+                <p><strong>01. Create an account:</strong> Sign up with your name, email, and phone number.</p>
+                <p><strong>02. Add a payment method:</strong> Use your debit card or a bank transfer to set up your first plan.</p>
+                <p><strong>03. Watch your money grow:</strong> Sit back, relax, and let your money work for you.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Dynamic text changes
+        const texts = ["Moyosoluwa", "Adeola", "Chioma", "Ahmed", "Funke"];
+        let index = 0;
+
+        const changingText = document.getElementById("changing-text");
+
+        setInterval(() => {
+            index = (index + 1) % texts.length;
+            changingText.textContent = texts[index];
+        }, 2000);
+    </script>
+</body>
+</html>
