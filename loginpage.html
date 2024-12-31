@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .content {
+            display: flex;
+            width: 100%;
+            max-width: 900px;
+            background-color: #fff;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .left-section {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            display: none; /* Hidden on mobile */
+        }
+
+        .left-section.visible {
+            display: flex; /* Show on desktop */
+        }
+
+        .left-section h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .left-section img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .right-section {
+            flex: 2;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #fff;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #999;
+            transition: color 0.3s;
+        }
+
+        .tab.active {
+            color: #e60000;
+        }
+
+        .tab:hover {
+            color: #e60000; /* Change only text color on hover */
+        }
+
+        .forms {
+            width: 100%;
+        }
+
+        .form {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form.active {
+            display: flex;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        input:focus {
+            border-color: #e60000;
+            outline: none;
+        }
+
+        .btn {
+            background-color: #e60000;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #cc0000;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .left-section {
+                display: none;
+            }
+
+            .right-section {
+                width: 100%;
+            }
+
+            .tab-buttons {
+                flex-direction: row; /* Side by side tabs on mobile */
+            }
+
+            .tab {
+                margin: 0 5px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <!-- Left Section -->
+            <div class="left-section visible" id="leftSection">
+                <h1 id="leftText">Welcome Back!</h1>
+                <img src="icon.png" alt="Welcome Icon"> <!-- Replace "icon.png" with your image file -->
+            </div>
+
+            <!-- Right Section -->
+            <div class="right-section">
+                <div class="tab-buttons">
+                    <div id="loginTab" class="tab active" onclick="showForm('login')">LOGIN</div>
+                    <div id="registerTab" class="tab" onclick="showForm('register')">REGISTER</div>
+                </div>
+
+                <div class="forms">
+                    <!-- Login Form -->
+                    <form id="loginForm" class="form active" method="POST" action="login.php">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        
+                        <button type="submit" class="btn">LOGIN</button>
+                    </form>
+
+                    <!-- Register Form -->
+                    <form id="registerForm" class="form" method="POST" action="register.php">
+                        <label for="name">User Name</label>
+                        <input type="text" id="name" name="username" placeholder="username" required>
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Create a password" required>
+                        
+                        <button type="submit" class="btn">REGISTER</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showForm(formType) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const loginTab = document.getElementById('loginTab');
+            const registerTab = document.getElementById('registerTab');
+            const leftSection = document.getElementById('leftSection');
+            const leftText = document.getElementById('leftText');
+
+            if (formType === 'login') {
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+                leftText.innerText = "Welcome Back!";
+            } else {
+                registerForm.classList.add('active');
+                loginForm.classList.remove('active');
+                registerTab.classList.add('active');
+                loginTab.classList.remove('active');
+                leftText.innerText = "Create Your Account!";
+            }
+        }
+    </script>
+</body>
+</html>
